@@ -21,45 +21,61 @@
 !        if(tprima .ge. 200)then
 !            tprima=200
 !        endif
-      do i=1,Nx
-        do j=1,Ny
+
+
       if(dke0 .eq. 2.5)then
 !%%%%%%%%%%%%%%%%Path 3 Paper Lauzeral et al
-        if(tprima .eq. 0 .and. (i .eq. 1) .and. (j .eq. 1))then
-          write(6,*) 'Development Path 3 Selected'
-        endif
-          dke(i,j)=(6.5+3.0*tanh((tprima+TS(i,j)-260)/30))/dke0
-          dsigma(i,j)=(0.3+0.25*tanh((tprima+TS(i,j)-200)/50))/dsigma0
+       if(tprima .eq. 0)then
+        write(6,*) 'Development Path 3 Selected'
+       endif
+       do j=1,Ny
+        do i=1,Nx
+         dke(i,j)=(6.5+3.0*tanh((tprima+TS(i,j)-260)/30))/dke0
+         dsigma(i,j)=(0.3+0.25*tanh((tprima+TS(i,j)-200)/50))/dsigma0
+        enddo
+       enddo
 
-!%%%%%%%%%%%%%%%%Path 1 Paper Lauzeral et al finishing in CU
-!          dke(i,j)=4/dke0
-!          dsigma(i,j)=(0.3+0.25*tanh((tprima+TS(i,j)-250)/50))/dsigma0
 
       elseif(dke0 .eq. 4.0)then
-!%%%%%%%%%%%%%%%%Path 1 Paper Lauzeral et al finishing in CU V2
-        if(tprima .eq. 0 .and. (i .eq. 1) .and. (j .eq. 1))then
-          write(6,*) 'Development Path 1 with ke=4.0 Selected'
-        endif
+!%%%%%%%%%%%%%%%%Path 1 Paper Lauzeral et al finishing in CU
+       if(tprima .eq. 0)then
+        write(6,*) 'Development Path 1 with ke=4.0 Selected'
+       endif
+       do j=1,Ny
+        do i=1,Nx
           dke(i,j)=1.0
           dsigma(i,j)=(0.3+0.25*tanh((tprima+TS(i,j)-250)/90))/dsigma0
 !        dsigma(i,j)=0.55/dsigma0
+        enddo
+       enddo
+
 
       elseif(dke0 .eq. 4.5)then
 !%%%%%%%%%%%%%%%%Path 1 Paper Lauzeral et al finishing in AU
-        if(tprima .eq. 0 .and. (i .eq. 1) .and. (j .eq. 1))then
-          write(6,*) 'Development Path 1 with ke=4.5 Selected'
-        endif
+       if(tprima .eq. 0)then
+        write(6,*) 'Development Path 1 with ke=4.5 Selected'
+       endif
+       do j=1,Ny
+        do i=1,Nx
           dke(i,j)=1.0
 !          dsigma(i,j)=0.55/dsigma0
           dsigma(i,j)=(0.3+0.25*tanh((tprima+TS(i,j)-250)/90))/dsigma0
+        enddo
+       enddo
+
 
       elseif(dke0 .eq. 6.0)then
 !%%%%%%%%%%%%%%%%Path 1 Paper Lauzeral et al finishing in AU
-        if(tprima .eq. 0 .and. (i .eq. 1) .and. (j .eq. 1))then
-          write(6,*) 'Development Path 1 with ke=6.0 Selected'
-        endif
+       if(tprima .eq. 0)then
+        write(6,*) 'Development Path 1 with ke=6.0 Selected'
+       endif
+       do j=1,Ny
+        do i=1,Nx
           dke(i,j)=1.0
           dsigma(i,j)=(0.3+0.25*tanh((tprima+TS(i,j)-250)/90))/dsigma0
+        enddo
+       enddo
+
 
       else
           write(6,*) 'Error:No Development Path Selected'
@@ -69,8 +85,7 @@
 !%%%%%%%%%%%%%%%%Gaussian Paper Palsson and Cox
 !          dke(i,j)=(4.0+TS(i,j)*0.5)/dke0
 !          dsigma(i,j)=(0.55)/dsigma0
-       enddo
-      enddo
+
 
 
 

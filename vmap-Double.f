@@ -24,8 +24,8 @@
       integer ier,pgbeg, i, j
       character(len=30) ct
 
-      do i=1,Nx
-       do j=1,Ny
+      do j=1,Ny
+       do i=1,Nx
         C1(i,j)=C(i,j)
 
        enddo
@@ -124,8 +124,8 @@
 !%%%%%%%%%%%%%%%%% For DevPath
 
       if (dke0 .eq. 2.5)then
-        do i=1,Nx
-         do j=1,Ny
+        do j=1,Ny
+         do i=1,Nx
             if (iState(i,j)+tprima .le. 154.6)then
                C1(i,j)=0
             elseif(iState(i,j)+tprima .le. 191.9) then
@@ -141,8 +141,8 @@
       endif
 
       if (dke0 .eq. 4)then
-        do i=1,Nx
-         do j=1,Ny
+        do j=1,Ny
+         do i=1,Nx
             if (iState(i,j)+tprima .le. 181.7)then
                C1(i,j)=0
             elseif(iState(i,j)+tprima .le. 246.3) then
@@ -160,8 +160,8 @@
 
 
       if (dke0 .eq. 4.5)then
-        do i=1,Nx
-         do j=1,Ny
+        do j=1,Ny
+         do i=1,Nx
             if (iState(i,j)+tprima .le. 193)then
                C1(i,j)=0
             elseif(iState(i,j)+tprima .le. 260.8) then
@@ -174,8 +174,8 @@
       endif
 
       if (dke0 .eq. 6.0)then
-        do i=1,Nx
-         do j=1,Ny
+        do j=1,Ny
+         do i=1,Nx
             if (iState(i,j)+tprima .le. 216)then
                C1(i,j)=0
             elseif(iState(i,j)+tprima .le. 301.8) then

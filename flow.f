@@ -186,7 +186,7 @@
             enddo
         enddo
 
-
+!
       elseif(Ny .eq. 200)then
         do i=1,Nx
             vdx(i,1)=0
@@ -242,7 +242,7 @@
                 vdy(i,j)=0
             enddo
         enddo
-
+!
 
 
       else

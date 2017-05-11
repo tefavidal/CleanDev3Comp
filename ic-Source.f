@@ -30,10 +30,10 @@
 
 !      call SteadyState(nfix,beta0,gamma0,ro0)
 !     %%%%%Without Initial State
-          nfix=1
-          gamma0(1)=0.5
-          beta0(1)=0.5
-          ro0(1)=0.5
+         nfix=1
+         gamma0(1)=0.5
+         beta0(1)=0.5
+         ro0(1)=0.5
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       write(6,*) 'Number of Steady States found==',nfix
 
@@ -46,11 +46,11 @@
       do i=1,Nx
        do j=1,Ny
 
-       if (i .gt. 25) then
+!       if (i .gt. 25) then
            factor=1.0
-       else
-            factor=0.0
-       endif
+!       else
+!            factor=0.0
+!       endif
             ro(i,j)=factor*ro0(1)
             beta(i,j)=factor*beta0(1)
             gamma(i,j)=factor*gamma0(1)

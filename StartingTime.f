@@ -36,9 +36,9 @@
   ! ----- Done setting up random seed ----
 
 
-        ClumpX=ceiling(0.2/(dx/dk1*(dke0*Diffgamma)**0.5))
-        ClumpY=ceiling(0.2/(dy/dk1*(dke0*Diffgamma)**0.5))
-        TimeGap=0.0
+        ClumpX=ceiling(0.1/(dx/dk1*(dke0*Diffgamma)**0.5))
+        ClumpY=ceiling(0.1/(dy/dk1*(dke0*Diffgamma)**0.5))
+        TimeGap=100.0
 
       write(6,*) 'Clump x=',ClumpX
       write(6,*) 'Clump y=',ClumpY

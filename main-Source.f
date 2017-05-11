@@ -21,55 +21,47 @@
       double precision dke(Nx,Ny),dsigma(Nx,Ny),TS(Nx,Ny)
       double precision t, iPeriod, it, it1
       double precision romin, romax
+      integer counter
+      character(len=4) ct1
+      character(len=17) ct2
+      character(len=21) ct3
 
       double precision gamma0(10),ro0(10),beta0(10)
       integer ier,pgbeg, i, j
-      character(len=30) ct1,ct2
-
-      ier=pgbeg(0,'OutputData2D/A17-Source-V1_5.ps/cps',1,1)
-
-      open(10,file ='OutputData2D/A17-Source-V1_5'
-     . ,status = 'unknown',form = 'formatted')
-
-
       t=0.d0
+      counter=0;
       iPeriod=0
       call anfang(t,Nx,Ny,beta,gamma,ro,TS)
+          open(10,file ='OutputData2D/data   0'
+     .     ,status = 'unknown',form = 'formatted')
+              call out(t,Nx,Ny,gamma,ro,beta,TS)
+          close(10)
+      ct2='OutputData2D/data'
 
-
-      call out(t,Nx,Ny,gamma,ro,beta)
-      call vmap(ier,t,Nx,Ny,gamma,TS)
  5    continue
 
-      it1=t/tout
 
       call ODE(t,Nx,Ny,beta,gamma,ro,TS,dke,dsigma)
 
-      it=(t+0.000001)/tout
-
       write(6,*) 'real t= '
       write(6,'(F6.2)') t/dk1
+      counter=counter+1
+      write(ct1,'(I4)') counter
+      ct3 = ct2 // ct1
 
-      if (it .gt. it1) then
-      call out(t,Nx,Ny,gamma,ro)
-       romin = ro(1,1)
-         romax = ro(1,1)
-         do i = 1,Nx
-          do j = 1,Ny
-             romin = min(romin,ro(i,j))
-             romax = max(romax,ro(i,j))
-          enddo
-         enddo
-         write(6,*) 'ro=',romin,romax
-      call vmap(ier,t,Nx,Ny,gamma,TS)
-      endif
+      write(6,*) ct3
+
+          open(10,file =ct3
+     .     ,status = 'unknown',form = 'formatted')
+              call out(t,Nx,Ny,gamma,ro,beta,TS)
+          close(10)
 
 
       if (t+dt .lt. tend) then
          goto 5
 
       endif
-      call pgend
+
       close(10)
 
 !

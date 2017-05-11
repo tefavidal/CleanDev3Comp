@@ -1,4 +1,4 @@
-      subroutine out(t,Nx,Ny,gamma,ro,beta)
+      subroutine out(t,Nx,Ny,gamma,ro,beta,TS)
 
       implicit none
 
@@ -17,26 +17,18 @@
 
       common /param/ gamma01,beta01,ro01,Diffgamma,dke0,dk1,dsigma0
 
-      double precision gamma(Nx,Ny),ro(Nx,Ny), beta(Nx,Ny)
+      double precision gamma(Nx,Ny),ro(Nx,Ny), beta(Nx,Ny), TS(Nx,Ny)
       double precision dls, meangamma
 
 
-      if (Ny .gt. 1) then
-        j=Ny/2
-      else
-        j=1
-      endif
 
       dls=dk1/(dke0*Diffgamma)**0.5
 
       do i=1,Nx
-        meangamma=0.d0
-        do jj=1,Ny
-        meangamma=meangamma+gamma(i,jj)
+        do j=1,Ny
+      write(10,*) t/dk1,i*dx/dls, j*dy/dls,gamma(i,j),ro(i,j),
+     .          beta(i,j),TS(i,j)
         enddo
-        meangamma=meangamma/Ny
-      write(10,*) t/dk1,i*dx/dls,gamma(i,j),ro(i,j),meangamma
-
       enddo
 
       write(10,*)

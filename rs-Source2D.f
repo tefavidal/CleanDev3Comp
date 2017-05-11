@@ -18,7 +18,6 @@
 
       double precision beta(Nx,Ny),gamma(Nx,Ny),ro(Nx,Ny)
       double precision betaprime(Nx,Ny),gammaprime(Nx,Ny),roprime(Nx,Ny)
-!      double precision f1(Nx,Ny),f2(Nx,Ny),Phi(Nx,Ny)
       double precision f1,f2,Phi,Y
       double precision gLaplace(Nx,Ny)
       double precision xgradeC(Nx,Ny),ygradeC(Nx,Ny)
@@ -28,18 +27,12 @@
 
 
 
-
-!      call function1(Nx,Ny,gamma,ro,f1,f2,Phi)
-
       call functionLap(Nx,Ny,gamma,gLaplace,xgradeC,ygradeC)
 
 
       call Development(t,Nx,Ny,TS,dke,dsigma)
         factor=1.0
       do j=1,Ny
-
-
-
        do i=1,Nx
 !       Extra variables calculation
         vdy=0.0
@@ -72,39 +65,6 @@
 
       end
 !      ***********************************************************
-      subroutine function1(Nx,Ny,gamma,ro,f1,f2,Phi)
-
-      implicit none
-
-      integer Nx, Ny, i, j
-      double precision dL1,dL2,dk,dc,dalpha,depsilon,depsilonp,
-     .               dlambda1,dlambda2,s1,s2,vd,tend,tout,dt,tE,
-     .               dx,dy,tol,isf,itstart,pi,amplit,prob
-
-      common /const/ dL1,dL2,dk,dc,dalpha,depsilon,depsilonp,
-     .               dlambda1,dlambda2,s1,s2,vd,tend,tout,dt,tE,
-     .               dx,dy,tol,isf,itstart,pi,amplit,prob
-
-      double precision gamma01,beta01,ro01,Diffgamma,dke0,dk1,dsigma0
-
-      common /param/ gamma01,beta01,ro01,Diffgamma,dke0,dk1,dsigma0
-      double precision gamma(Nx,Ny),ro(Nx,Ny)
-      double precision f1(Nx,Ny),f2(Nx,Ny),Phi(Nx,Ny), Y, aux
-
-
-      do j=1,Ny
-       do i=1,Nx
-        aux=gamma(i,j)
-        f1(i,j)=(1.d0+dk*aux)/(1.d0+aux)
-        f2(i,j)=(dL1+dk*dL2*dc*aux)/(1.d0+dc*aux)
-        Y=ro(i,j)*aux/(1.d0+aux)
-        Phi(i,j)=(dlambda1+Y**2)/(dlambda2+Y**2)
-       enddo
-      enddo
-
-      return
-      end
-
 !     *************************************************
       subroutine functionLap(Nx,Ny,gamma,gLaplace,xgradeC,ygradeC)
 

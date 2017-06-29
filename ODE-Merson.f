@@ -115,7 +115,7 @@
       index=0
       do j=1,Ny
        do i=1,Nx
-       err=max(abs(b1(i,j)),abs(g1(i,j)),abs(r1(i,j)))
+       err=max(abs(b1(i,j)),abs(g1(i,j)),abs(r1(i,j)),err)
       if (beta(i,j) .lt. 0 .or. gamma(i,j) .lt. 0 .or. ro(i,j) .lt. 0)
      . then
       index=1

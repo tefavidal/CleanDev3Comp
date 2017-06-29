@@ -65,8 +65,9 @@
       write(6,*) 'dimensionless ylength=',2*dk1/(dke0*Diffgamma)**0.5
 !      dx=20.d0/Nx*dk1/(dke0*Diffgamma)**0.5
 !      dy=dx
-       dx=0.1*dk1/(dke0*Diffgamma)**0.5
-       dy=0.025*dk1/(dke0*Diffgamma)**0.5
+!       dx=0.1*dk1/(dke0*Diffgamma)**0.5
+       dx=0.025*dk1/(dke0*Diffgamma)**0.5
+       dy=2.d0/Ny*dk1/(dke0*Diffgamma)**0.5
 
       write(6,*)'dimensionless dx=', dx
       write(6,*)'dimensionless dy=', dy
@@ -80,8 +81,9 @@
       go to 10
 
  20   call ic(t,Nx,Ny,beta,gamma,ro)
-
       call StartingTime(t,Nx,Ny,TS)
+
+! 20   call loadSpiral(t,Nx,Ny,beta,gamma,ro,TS)
 
  10   return
       

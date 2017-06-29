@@ -31,9 +31,14 @@
 !      call SteadyState(nfix,beta0,gamma0,ro0)
 !     %%%%%Without Initial State
          nfix=1
-         gamma0(1)=0.5
-         beta0(1)=0.5
-         ro0(1)=0.5
+         gamma0(1)=0.006
+         beta0(1)=0.3167
+         ro0(1)=0.8953
+
+!         gamma0(1)=0.5
+!         beta0(1)=0.5
+!         ro0(1)=0.5
+
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       write(6,*) 'Number of Steady States found==',nfix
 
@@ -57,6 +62,29 @@
 
        enddo
       enddo
+
+
+!         do j=75,84
+!       do j=1,Ny
+!           do j=5,14
+         do j=64,95
+!            if(Nx .eq. 2000)then
+!               do i=105,112
+               do i=101,116
+                  gamma(i,j)=gamma0(1)+2
+               enddo
+!            elseif(Nx .eq. 1000)then
+!               do i=103,106
+!                  gamma(i,j)=gamma0(1)+2
+!               enddo
+!            elseif(Nx .eq. 500)then
+!               do i=202,203
+!                  gamma(i,j)=gamma0(1)+2
+!               enddo
+!            endif
+         enddo
+
+
 
          gamma01=gamma0(1)
          beta01=beta0(1)

@@ -18,7 +18,7 @@
 
       double precision beta(Nx,Ny),gamma(Nx,Ny),ro(Nx,Ny)
       double precision betaprime(Nx,Ny),gammaprime(Nx,Ny),roprime(Nx,Ny)
-      double precision f1,f2,Phi,Y
+      double precision f1,f2,Phi,Y,speedstop
       double precision gLaplace(Nx,Ny)
       double precision xgradeC(Nx,Ny),ygradeC(Nx,Ny)
       double precision vdx(Nx,Ny),vdy
@@ -34,13 +34,20 @@
         factor=1.0
       do j=1,Ny
        do i=1,Nx
-!       Extra variables calculation
+!%%%%%%       Extra variables calculation
+!         if((t/dk1 .gt. 140))then
+!            speedstop=0.0
+!         else
+!           speedstop=1.0
+!         endif
+
         vdy=0.0
         aux=gamma(i,j)
         f1=(1.d0+dk*aux)/(1.d0+aux)
         f2=(dL1+dk*dL2*dc*aux)/(1.d0+dc*aux)
         Y=ro(i,j)*aux/(1.d0+aux)
         Phi=(dlambda1+Y**2)/(dlambda2+Y**2)
+
 ! %%%%%%%%%%%%%%%%%%
 !       Using DEV PATH
 !       If Uncommenting this, also uncomment call to Development
@@ -51,24 +58,25 @@
 !        gammaprime(i,j)=1.0/depsilon*
 !     .              (s2*beta(i,j)-dke(i,j)*gamma(i,j))
 !     .                  +depsilon*gLaplace(i,j)
-!     .          -  (vdx(i,j)*xgradeC(i,j)+vdy*ygradeC(i,j))
+!     .          -speedstop*(vdx(i,j)*xgradeC(i,j)+vdy*ygradeC(i,j))
 
 ! %%%%%%%%%%%%%%%%%%
 !       Using Fixed paremeter
 !         if((i.gt. 200) .and. (i .lt. 300) .and. (j .gt.100))then
 !         if((i-260)*(i-260)*0.000625 +(j-80)*(j-80)*0.00015625
 !     .     .lt. 0.64)then
-!!         if((i .lt. 300))then
+!         if((t/dk1 .gt. 8))then
 !            factor=0.0
 !         else
-            factor=1.0
+!           factor=1.0
 !         endif
-
+!
         betaprime(i,j)=(s1*Phi-beta(i,j))
      .                    /depsilonp
         roprime(i,j)=-f1*ro(i,j)+f2*(1.d0-ro(i,j))
         gammaprime(i,j)=1.0/depsilon*
-     .              (s2*beta(i,j)-gamma(i,j))
+     .              (s2*beta(i,j)
+     .               -(1.0-0.15*vdx(i,j)/vd)*gamma(i,j))
      .                  +depsilon*gLaplace(i,j)
      .          -  factor*(vdx(i,j)*xgradeC(i,j)+vdy*ygradeC(i,j))
 

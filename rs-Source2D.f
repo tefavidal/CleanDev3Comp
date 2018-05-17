@@ -30,16 +30,18 @@
       call functionLap(Nx,Ny,gamma,gLaplace,xgradeC,ygradeC)
 
 
-!      call Development(t,Nx,Ny,TS,dke,dsigma)
+      call Development(t,Nx,Ny,TS,dke,dsigma)
         factor=1.0
       do j=1,Ny
        do i=1,Nx
 !%%%%%%       Extra variables calculation
-!         if((t/dk1 .gt. 140))then
-!            speedstop=0.0
-!         else
-!           speedstop=1.0
-!         endif
+         if((t/dk1 .gt. 120))then
+            speedstop=2.0
+         elseif((t/dk1 .gt. 150))then
+           speedstop=3.0
+         else
+           speedstop=1.0
+         endif
 
         vdy=0.0
         aux=gamma(i,j)
@@ -52,13 +54,13 @@
 !       Using DEV PATH
 !       If Uncommenting this, also uncomment call to Development
 
-!        betaprime(i,j)=(s1*Phi*dsigma(i,j)-beta(i,j))
-!     .                    /depsilonp
-!        roprime(i,j)=-f1*ro(i,j)+f2*(1.d0-ro(i,j))
-!        gammaprime(i,j)=1.0/depsilon*
-!     .              (s2*beta(i,j)-dke(i,j)*gamma(i,j))
-!     .                  +depsilon*gLaplace(i,j)
-!     .          -speedstop*(vdx(i,j)*xgradeC(i,j)+vdy*ygradeC(i,j))
+        betaprime(i,j)=(s1*Phi*dsigma(i,j)-beta(i,j))
+     .                    /depsilonp
+        roprime(i,j)=-f1*ro(i,j)+f2*(1.d0-ro(i,j))
+        gammaprime(i,j)=1.0/depsilon*
+     .              (s2*beta(i,j)-dke(i,j)*gamma(i,j))
+     .                  +depsilon*gLaplace(i,j)
+     .          -speedstop*(vdx(i,j)*xgradeC(i,j)+vdy*ygradeC(i,j))
 
 ! %%%%%%%%%%%%%%%%%%
 !       Using Fixed paremeter
@@ -71,14 +73,14 @@
 !           factor=1.0
 !         endif
 !
-        betaprime(i,j)=(s1*Phi-beta(i,j))
-     .                    /depsilonp
-        roprime(i,j)=-f1*ro(i,j)+f2*(1.d0-ro(i,j))
-        gammaprime(i,j)=1.0/depsilon*
-     .              (s2*beta(i,j)
-     .               -(1.0-0.15*vdx(i,j)/vd)*gamma(i,j))
-     .                  +depsilon*gLaplace(i,j)
-     .          -  factor*(vdx(i,j)*xgradeC(i,j)+vdy*ygradeC(i,j))
+!        betaprime(i,j)=(s1*Phi-beta(i,j))
+!     .                    /depsilonp
+!        roprime(i,j)=-f1*ro(i,j)+f2*(1.d0-ro(i,j))
+!        gammaprime(i,j)=1.0/depsilon*
+!     .              (s2*beta(i,j)
+!     .               -(1.0-0.15*vdx(i,j)/vd)*gamma(i,j))
+!     .                  +depsilon*gLaplace(i,j)
+!     .          -  factor*(vdx(i,j)*xgradeC(i,j)+vdy*ygradeC(i,j))
 
 
        enddo

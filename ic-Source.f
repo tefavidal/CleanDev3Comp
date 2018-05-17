@@ -66,13 +66,13 @@
 
 !         do j=75,84
 !       do j=1,Ny
-           do j=5,14
+!          do j=5,14
 !         do j=64,95
 !            if(Nx .eq. 2000)then
-               do i=105,112
+!              do i=105,112
 !               do i=101,116
-                  gamma(i,j)=gamma0(1)+2
-               enddo
+!                 gamma(i,j)=gamma0(1)+2
+!              enddo
 !            elseif(Nx .eq. 1000)then
 !               do i=103,106
 !                  gamma(i,j)=gamma0(1)+2
@@ -82,7 +82,7 @@
 !                  gamma(i,j)=gamma0(1)+2
 !               enddo
 !            endif
-         enddo
+!        enddo
 
 
 

@@ -3,7 +3,7 @@
       implicit none
 
 
-      INTEGER, PARAMETER :: Nx=2000
+      INTEGER, PARAMETER :: Nx=500
       INTEGER, PARAMETER :: Ny=160
 
       double precision dL1,dL2,dk,dc,dalpha,depsilon,depsilonp,

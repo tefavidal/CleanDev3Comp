@@ -58,13 +58,14 @@
 
 
 ! %%%%%%%% For periodical perurbation
-!      if (mod(counter, 50) .eq. 0)then
-!         do j=5,14
-!            do i=105,112
-!               gamma(i,j)=gamma(i,j)+2
-!            enddo
-!         enddo
-!      endif
+      if (mod(counter, 50) .eq. 10)then
+      write(6,*) 'Adding perturbation '
+         do j=75,84
+            do i=202,203
+               gamma(i,j)=gamma(i,j)+2
+            enddo
+         enddo
+      endif
 
 !
       if (t+dt .lt. tend) then

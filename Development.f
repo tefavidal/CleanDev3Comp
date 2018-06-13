@@ -18,9 +18,6 @@
 
 
       tprima=t/dk1
-!        if(tprima .ge. 200)then
-!            tprima=200
-!        endif
 
 
       if(dke0 .eq. 2.5)then

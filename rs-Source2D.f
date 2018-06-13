@@ -30,18 +30,10 @@
       call functionLap(Nx,Ny,gamma,gLaplace,xgradeC,ygradeC)
 
 
-      call Development(t,Nx,Ny,TS,dke,dsigma)
+!      call Development(t,Nx,Ny,TS,dke,dsigma)
         factor=1.0
       do j=1,Ny
        do i=1,Nx
-!%%%%%%       Extra variables calculation
-         if((t/dk1 .gt. 120))then
-            speedstop=2.0
-         elseif((t/dk1 .gt. 150))then
-           speedstop=3.0
-         else
-           speedstop=1.0
-         endif
 
         vdy=0.0
         aux=gamma(i,j)
@@ -54,33 +46,24 @@
 !       Using DEV PATH
 !       If Uncommenting this, also uncomment call to Development
 
-        betaprime(i,j)=(s1*Phi*dsigma(i,j)-beta(i,j))
-     .                    /depsilonp
-        roprime(i,j)=-f1*ro(i,j)+f2*(1.d0-ro(i,j))
-        gammaprime(i,j)=1.0/depsilon*
-     .              (s2*beta(i,j)-dke(i,j)*gamma(i,j))
-     .                  +depsilon*gLaplace(i,j)
-     .          -speedstop*(vdx(i,j)*xgradeC(i,j)+vdy*ygradeC(i,j))
-
-! %%%%%%%%%%%%%%%%%%
-!       Using Fixed paremeter
-!         if((i.gt. 200) .and. (i .lt. 300) .and. (j .gt.100))then
-!         if((i-260)*(i-260)*0.000625 +(j-80)*(j-80)*0.00015625
-!     .     .lt. 0.64)then
-!         if((t/dk1 .gt. 8))then
-!            factor=0.0
-!         else
-!           factor=1.0
-!         endif
-!
-!        betaprime(i,j)=(s1*Phi-beta(i,j))
+!        betaprime(i,j)=(s1*Phi*dsigma(i,j)-beta(i,j))
 !     .                    /depsilonp
 !        roprime(i,j)=-f1*ro(i,j)+f2*(1.d0-ro(i,j))
 !        gammaprime(i,j)=1.0/depsilon*
-!     .              (s2*beta(i,j)
-!     .               -(1.0-0.15*vdx(i,j)/vd)*gamma(i,j))
+!     .              (s2*beta(i,j)-dke(i,j)*gamma(i,j))
 !     .                  +depsilon*gLaplace(i,j)
-!     .          -  factor*(vdx(i,j)*xgradeC(i,j)+vdy*ygradeC(i,j))
+!     .          -(vdx(i,j)*xgradeC(i,j)+vdy*ygradeC(i,j))
+
+! %%%%%%%%%%%%%%%%%%
+!       Using Fixed paremeter
+
+        betaprime(i,j)=(s1*Phi-beta(i,j))
+     .                    /depsilonp
+        roprime(i,j)=-f1*ro(i,j)+f2*(1.d0-ro(i,j))
+        gammaprime(i,j)=1.0/depsilon*
+     .              (s2*beta(i,j)-gamma(i,j))
+     .                  +depsilon*gLaplace(i,j)
+     .          -  (vdx(i,j)*xgradeC(i,j)+vdy*ygradeC(i,j))
 
 
        enddo
@@ -123,15 +106,10 @@
         gammaim1=gamma(i+1,j)
         gammaip1=gamma(i+1,j)
 
-!        gammaim2=0
-!        gammaim1=0
-
        elseif(i .eq. 2) then
         gammaim2=-gamma(i,j)+2*gamma(i-1,j)
         gammaim1=gamma(i-1,j)
         gammaip1=gamma(i+1,j)
-
-!        gammaim2=0
 
        elseif(i .eq. Nx) then
         gammaim2=gamma(i-2,j)
@@ -162,7 +140,7 @@
         gLapY=(gammajp1+gammajm1-2*gamma(i,j))/(dy**2)
         gLaplace(i,j)=gLapX+gLapY
 
-
+!       Non linear gradient approximation
 
         if(gammaip1 .eq. gamma(i,j)) then
         thetai=1.d-10
@@ -183,8 +161,7 @@
 
 
         ygradeC(i,j)=(gammajp1-gammajm1)/(2*dy)
-!        xgradeC(i,j)=(gammaip1-gamma(i,j))/(dx)
-!        ygradeC(i,j)=(gammajp1-gamma(i,j))/(dy)
+!        xgradeC(i,j)=(gammaip1-gammaim1)/(2*dx)
        enddo
       enddo
 

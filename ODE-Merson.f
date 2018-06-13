@@ -142,9 +142,7 @@
 
       t=t+h
       tau=tau+h
-!       if (t .lt. 250) then
-!      call Development(t,Nx,Ny,TS,dke,dsigma)
-!      endif
+
       h=dt
 
       if (tau + h .le. tout+tol*dt) then

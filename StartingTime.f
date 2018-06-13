@@ -52,15 +52,6 @@
                     call random_number(aux2)
                 endif
 
-!       %%%%%%%%%%%%% Fixed distribution
-!                if(aux .le. 0.5)then
-!                    TS(i,j)=268.80
-!                elseif(aux .gt. 0.5 .and. aux .le. 0.75)then
-!                    TS(i,j)=193
-!                else
-!                    TS(i,j)=0
-!                endif
-
 
 !      %%%%%%%%%% Exponential distribution
         if(dke0 .eq. 2.5)then
@@ -79,50 +70,6 @@
             enddo
         endif
       enddo
-
-!%%%%%%%%%%%%%%%Fixed
-
-!        do i=1,8
-!            do j=1,Ny
-!      if (i .le. 8 .and. i .gt.4 .and. j .ge. 33 .and. j .le. 48)then
-!                    TS(i,j)=260.8
-!                else
-!                    TS(i,j)=0
-!                endif
-!            enddo
-!        enddo
-!
-!
-!      do i=9,Nx
-!        if (mod(i-1,3*ClumpX) .eq. ClumpX) then
-!            do j=1,Ny
-!                TS(i,j)=260.8
-!            enddo
-!        elseif (mod(i-1,3*ClumpX) .eq. 2*ClumpX) then
-!            do j=1,Ny
-!                TS(i,j)=193
-!            enddo
-!        elseif (mod(i-1,3*ClumpX) .eq. 0) then
-!            do j=1,Ny
-!                TS(i,j)=0
-!            enddo
-!        else
-!            do j=1,Ny
-!                TS(i,j)=TS(i-1,j)
-!            enddo
-!        endif
-!      enddo
-
-!%%%%%%%%%%%%%%% Just Begining
-!        do i=1,Nx
-!            do j=1,Ny
-!      if (i .le. 8 .and. i .gt.4 .and. j .ge. 33 .and. j .le. 48)then
-!                    TS(i,j)=268.80
-!                else
-!                    TS(i,j)=193
-!                endif
-!            enddo
-!        enddo
 
 
 
